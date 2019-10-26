@@ -1,0 +1,92 @@
+.card-div{
+   /* min-width: 350px;*/
+    margin: 20px 0;
+    border-radius: 4px;
+    /*background-color: #e1f0e8;*/
+    -webkit-box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.card-div-featured{
+    background-color: #bbedbf;
+}
+
+.card-div-bg{
+    background-color: #e1f0e8;
+}
+
+.card-container {
+    padding: 10px 10px;
+    display: flex;
+    flex-direction: row;
+    /* flex-wrap: wrap; */
+    /* position: relative; */
+    width: 100%;
+}
+
+.card-img{
+  /*position: relative;*/
+  /*width:25%;*/
+}
+
+.card-content{
+  padding-left: 10px;
+  width:75%;
+}
+
+.truncate {
+  /*width: 250px;*/
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.price{
+  float:right;
+  padding-top: 80px;
+}
+
+.name-rating{
+    display:flex;
+    flex-direction:row;
+}
+
+.rating{
+   -moz-box-shadow:    inset 0 0 10px #000000;
+   -webkit-box-shadow: inset 0 0 10px #000000;
+   box-shadow:         inset 0 0 10px #000000;
+   width:40px;
+   height:40px;
+   text-align:center;
+   vertical-align:middle;
+}
+
+.flag{
+    clip-path: polygon(0% 0%, 100% 0%, 85% 50%, 100% 100%, 0% 100%);
+    background-color: #ff69b4;
+    padding: 10px;
+    color: #fff;
+    height: 50%;
+}
+
+.hostel-name{
+    width: 75%;
+    text-align: left;
+}
+
+.hostel-description{
+    text-align: left;
+}
+
+img{
+    max-width: 250px;
+    max-height: 250px;
+    min-width: 50px;
+    min-height: 50px;
+}
