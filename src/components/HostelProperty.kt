@@ -18,32 +18,30 @@ interface HostelPropertyProps : RProps {
 class HostelProperty(props:HostelPropertyProps) :RComponent <HostelPropertyProps, RState>(props){
     override fun RBuilder.render() {
         div("card-div ${if(props.isFeatured) """card-div-featured""" else """card-div-bg"""}") {
-            div("card-container"){
+            div("grid-container"){
                 div("card-img"){
                     img (src="http://${props.imgUri}"){ }
                 }
-                div("card-content"){
-                    div("name-rating"){
-                        div("hostel-name"){
-                            b{
-                                +"${props.name}"
-                            }
-                            p{
-                                +"${props.location}"
-                            }
-                        }
-                        div("flag"){
-                            +"${props.rating}"
-                        }
+                div("hostel-name"){
+                    b{
+                        +"${props.name}"
                     }
-                    div("hostel-description"){
-                        div("truncate"){
-                            +"${props.description}"
-                        }
-                        div("price"){
-                            +"Prices from: ${props.lowestPricePerNight.toString()} EUR"
-                        }
+                    p{
+                        +"${props.location}"
                     }
+                }
+                div("rate"){
+                    div("flag"){
+                        +"${props.rating}"
+                    }
+                }
+                div("desc"){
+                    div("truncate"){
+                        +"${props.description}"
+                    }
+                }
+                div("price"){
+                    +"Prices from: ${props.lowestPricePerNight.toString()} EUR"
                 }
             }
         }

@@ -1,8 +1,8 @@
 .card-div{
    /* min-width: 350px;*/
+    width:100%;
     margin: 20px 0;
     border-radius: 4px;
-    /*background-color: #e1f0e8;*/
     -webkit-box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
     box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
     display: -ms-flexbox;
@@ -21,40 +21,52 @@
     background-color: #e1f0e8;
 }
 
-.card-container {
-    padding: 10px 10px;
-    display: flex;
-    flex-direction: row;
-    /* flex-wrap: wrap; */
-    /* position: relative; */
+.grid-container {
+    display: grid;
+    grid-template-columns: 20% 75% 5%;
+    grid-template-rows: 50px 100px 50px;
+    grid-template-areas:
+      "card-img hostel-name rate"
+      "card-img desc desc"
+      "card-img price price";
     width: 100%;
 }
 
-.card-img{
-  /*position: relative;*/
-  /*width:25%;*/
-}
+  .hostel-name {
+    grid-area: hostel-name;
+    text-align: left;
+    padding-left:10px;
+    padding-top: 10px;
+  }
 
-.card-content{
-  padding-left: 10px;
-  width:75%;
-}
+  .card-img {
+    grid-area: card-img;
+  }
+
+  .rate{
+    grid-area: rate;
+    padding-right: 10px;
+    padding-top: 10px;
+  }
+
+  .desc{
+    grid-area: desc;
+    padding-left:10px;
+    padding-right: 10px;
+    padding-top: 30px;
+    text-align: left;
+  }
+
+  .price{
+    grid-area: price;
+    text-align: right;
+    padding-right: 10px;
+  }
 
 .truncate {
-  /*width: 250px;*/
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.price{
-  float:right;
-  padding-top: 80px;
-}
-
-.name-rating{
-    display:flex;
-    flex-direction:row;
 }
 
 .rating{
@@ -73,15 +85,6 @@
     padding: 10px;
     color: #fff;
     height: 50%;
-}
-
-.hostel-name{
-    width: 75%;
-    text-align: left;
-}
-
-.hostel-description{
-    text-align: left;
 }
 
 img{

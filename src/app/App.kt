@@ -2,12 +2,10 @@ package app
 
 import react.*
 import react.dom.*
-import ticker.*
 import components.*
 import domains.*
 import models.*
 import utils.*
-import org.w3c.fetch.Request
 import kotlin.browser.window
 import kotlinext.js.jsObject
 import kotlin.js.Promise
@@ -21,7 +19,10 @@ interface AppState : RState {
     var secondsElapsed: Int
 }
 
-//you should need "npm install axios --save" in advance in your project folder
+//My original idea was to use coroutines to fetch data from api (see getProperties in HostelPropertService.kt) but somehow I couldnt make it working ptoperly with kotlin-react
+// plus apparently Serialization doesnt work with kotlin-react (this is an open ticket https://youtrack.jetbrains.com/issue/CRKA-84)
+// so couldnt use window.fetch at all and had to wrap Axios to get data
+// and you should need "npm install axios --save" in advance in the project folder
 @JsModule("axios")
 external fun <T> axios(config: AxiosConfigSettings): Promise<AxiosResponse<T>>
 
@@ -84,6 +85,7 @@ class App : RComponent<RProps, AppState>() {
 
     private var conversionRate: Double = 7.55
 
+    //This fun should actually call HostelPropertService.getProperties...
     private fun getHostelProperties() {
         val config: AxiosConfigSettings = jsObject {
             url = "https://gist.githubusercontent.com/ruimendesM/bf8d095f2e92da94938810b8a8187c21/raw/70b112f88e803bf0f101f2c823a186f3d076d9e6/properties.json"
@@ -108,11 +110,6 @@ class App : RComponent<RProps, AppState>() {
                 loading = false
                 isError = false
             }
-//            console.log(response.status)
-//            console.log(response.statusText)
-//            console.log(response.config)
-//            console.log(response.headers)
-//            console.log(response.data)
             window.clearInterval(timerID!!)
             sendStats("load-details", state.secondsElapsed)
         }.catch { error ->
@@ -132,6 +129,7 @@ class App : RComponent<RProps, AppState>() {
         return imgList[0]?.prefix.concat(imgList[0]?.suffix)
     }
 
+    //And this fun should also call HostelPropertService....
     private fun sendStats(action:String?, duration: Int=0){
         val hostUrl = "https://gist.githubusercontent.com/ruimendesM/cb9313c4d4b3434975a3d7a6700d1787/raw/02d17a4c542ac99fe559df360cbfe9ba24dbe6be/stats?action="
         val sAction = action?: "load-details"
@@ -143,9 +141,6 @@ class App : RComponent<RProps, AppState>() {
         }
         axios<Stats>(config).then{ response ->
             console.log(response.status)
-//            console.log(response.statusText)
-//            console.log(response.config)
-//            console.log(response.headers)
             console.log(response.data)
         }.catch { error ->
             console.log(error.message)
@@ -160,14 +155,6 @@ class App : RComponent<RProps, AppState>() {
             setState { secondsElapsed += 1 }
         }, 10)
         getHostelProperties()
-//        window.fetch(Request("https://gist.githubusercontent.com/ruimendesM/bf8d095f2e92da94938810b8a8187c21/raw/70b112f88e803bf0f101f2c823a186f3d076d9e6/properties.json")).then {
-//            response-> response.text().then {
-//            json ->
-//                    //val pr = JSON.parse<HostelWrapper>(json)
-//                    console.log(JSON.parse<HostelWrapper>(json))
-//            }
-//
-//        }
     }
 
     override fun componentWillUnmount() {
@@ -175,9 +162,6 @@ class App : RComponent<RProps, AppState>() {
     }
 
     override fun RBuilder.render() {
-//        p("App-ticker") {
-//            ticker()
-//        }
         div("${if(state.loading) """show-loader loader""" else """hide-loader"""}"){
 
         }
